@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Access Calculate.iml" filepath="$PROJECT_DIR$/Access Calculate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Calculate Library.iml" filepath="$PROJECT_DIR$/Calculate Library.iml" />
+    </modules>
+  </component>
+</project>
