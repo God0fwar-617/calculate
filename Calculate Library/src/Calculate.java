@@ -155,4 +155,16 @@ public class Calculate {
     	double ret = value; // convert to double, e.g. 135.0
     	return ret / 100.0D; // 1.35
     }
+    
+    // simplified version which leverages that (int) of num * 100 is already the round-down result
+    // rounding a double to two decimal points w/o use of library
+    // anything with +n.nn5 and greater will be rounded up
+    // anything with -n.nn5 will be rounded down
+    public static double round2c(double num) {    	
+    	if (num < 0.0) return (-1.0) * round2c(-num);     // for negative numbers we invert them
+    	int number = (int) (num * 100);                   // these are the digits we want to keep
+    	int significantDigit = (int) (num * 1000) % 10;   // this digit decides the rounding
+    	if (significantDigit >= 5) ++number;              // rounding up if next digit (1000th) is >= 5
+    	return (double) number / 100.0D;
+    }
 }
