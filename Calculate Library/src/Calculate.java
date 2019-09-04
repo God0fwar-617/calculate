@@ -130,21 +130,62 @@ public class Calculate {
 	    return (double) tmp / factor;    	
     }
 
-//    public static double round2b(double num) {
-//    	// 1.34687 -> 1346.87
-//	    int factor = 1000;
-//	    int value = (int) num * factor; // 1346
-//	    
-//	    // here: 6
-//	    int lastDigit = value % 10;
-//	    if (lastDigit >=5) {
-//	    	// round up: desired: 1.35 which is 1350 / 1000.0
-//	    	return (double) value / 1000.0;
-//	    	
-//	    } else {
-//	    	// round down
-//	    	return (double) value / 1000.0;
-//	    }  	
-//    }
+    public static double round2b(double num) {
+    	if (num < 0.0) return round2b_neg_(num);
+    	else return round2b_pos_(num);
+    }
     
+    /** implement rounding w/o using any library methods 
+     *  rounding is implemented to round to two digits 
+     *  works only on positive numbers*/
+    private static double round2b_pos_(double num) {    	
+    	// convert to integer with last digit being the one deciding the rounding, e.g. 1.34687 -> 1346
+	    int factor = 1000;
+	    int value = (int) (num * factor); // 1346
+	    
+	    // get the last digit which decides if round up or down, here: 6
+	    int lastDigit = value % 10;
+	    if (lastDigit >=5) {
+	    	// round up: desired: 1.35 which is 1350 / 1000.0
+	    	value += (10 - lastDigit); // 1346 + (10 - 6) = 1350	    	
+	    } else {
+	    	// round down
+	    	value -= lastDigit; // 1346 --> 1340
+	    }  	
+    	value = value / 10; // remove the trailing zero, e.g. 1350 --> 135
+    	double ret = value; // convert to double, e.g. 135.0
+    	return ret / 100.0D; // 1.35
+    }
+    
+    /** implement rounding w/o using any library methods 
+     *  rounding is implemented to round to two digits 
+     *  works only for negative numbers 
+     *  
+     *  there is some ambiguous cases like -6.225 which can either go -6.220 or -6.250
+     *  going to -6.23 is easier as we need to only look at the last digit
+     *  it also means that -6.225 is rounded to -6.23 and +6.225 is rounded to +6.23
+     *  while this is symmetric to each other it means -6.225 is rounded down and +5.225 is rounded up
+     *  
+     *  http://mathforum.org/library/drmath/view/71202.html
+     *  
+     *  
+     *  */
+    private static double round2b_neg_(double num) {    	
+    	// convert to integer with last digit being the one deciding the rounding, e.g. 1.34687 -> 1346
+	    int factor = 1000;
+	    int value = (int) (num * factor); // 1346
+	    
+	    // get the last digit which decides if round up or down, here: 6
+	    int lastDigit = value % 10;
+	    if (lastDigit >= 5) { 
+	    	// round down, e.g. -6.225 and smaller -> -6.23  (-6.23 is closer than -6.22)
+	    	value -= (10 - lastDigit);
+	    } else {
+	    	// round up, e.g. -6.224999 and bigger -> -6.22
+	    	value += lastDigit;
+	    }  	
+    	value = value / 10; // remove the trailing zero, e.g. 1350 --> 135
+    	double ret = value; // convert to double, e.g. 135.0
+    	return ret / 100.0D; // 1.35
+    }
 }
