@@ -111,7 +111,7 @@ public class Calculate {
     	return max;
     }
     
-    public static double min(double a , double b ) {
+    public static int min(int a , int b ) {
         if (a < b) 
         { 
              return a;
