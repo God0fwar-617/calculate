@@ -7,7 +7,7 @@ public class Calculate {
     }
 
     public static int cube(int num) {
-        int cubeNum = num * num;
+        int cubeNum = num * num * num;
         return cubeNum;
 
     }
@@ -35,7 +35,7 @@ public class Calculate {
     }
 
     public static double discriminant(double a, double b, double c) {
-        double ret = b * b / (4 * a * c);
+        double ret = b * b - (4 * a * c);
         return ret;
     }
 
