@@ -167,4 +167,51 @@ public class Calculate {
     	if (significantDigit >= 5) ++number;              // rounding up if next digit (1000th) is >= 5
     	return (double) number / 100.0D;
     }
+    
+    public static double exponent(double base, int exponentx) {
+    	double x = 1;
+    	int a = exponentx ;
+    	int b = exponentx * exponentx;
+    	for (int i = 1 ; i <= exponentx ; ++i) {
+    	     x = x *base;
+    	}
+    	return x;
+    }
+    
+    public static int factorial(int f) {
+    	int x = 1;
+    	for ( int i = 1 ; i <=f ; ++i) {
+    		x = x * i ;
+    	}
+    	return x;
+    	
+    }
+    public static boolean isPrime(int a) {
+    	for (int i = 2 ;i  < a ; ++i) {
+         if (isDivisibleBy (a,i) ) {
+        	 return false;
+         }
+    	}
+        return true;    	
+    }
+    
+     public static int gcf( int a , int b ) {
+    	 int i = min(a,b) ;
+    	 while (i > 1 ) {
+    		 if ( isDivisibleBy(a,i) && isDivisibleBy(b,i) ) return i;
+    		 --i;
+    	 }
+    	 return 1;
+     }
+    
+    // A call to sqrt returns an approximation of the square root of the value passed, rounded to two decimal places.  
+    // The method accepts a double and returns a double.
+    // While the classic algorithm uses recursion (a topic we will all explore later) for this first pass, 
+    // you should Newton's method for approximating square roots.  
+    // Essentially, it employs some fancy guess and check to find an appropriate value.  
+    // The algorithm you are to use is explained pretty clearly here: goo.gl/Vl3JGe
+    //    You should keep guessing and altering your guesses until the difference between 
+    //    the original input and your result squared is less than .005.  
+    //    Then round to 2 decimal places.
+  //  sqrt
 }
