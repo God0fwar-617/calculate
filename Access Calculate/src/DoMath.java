@@ -36,6 +36,6 @@ public class DoMath
 		System.out.println(Calculate.gcf(25, 15));
 		System.out.println(Calculate.gcf(15, 25));
 		System.out.println(Calculate.gcf(17, 21));
-		
+		System.out.println(Calculate.sqrt(64.0));
 	}
 }
