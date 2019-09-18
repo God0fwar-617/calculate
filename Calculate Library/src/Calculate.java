@@ -1,3 +1,5 @@
+import java.util.zip.ZipEntry;
+
 public class Calculate {
 
 	public static int square(int num) {
@@ -32,7 +34,7 @@ public class Calculate {
 		return rad;
 	}
 
-	public static double discriminant(double a, double b, double c) {
+	public static double discriminant(double a, double b, double c) { //we use 
 		double ret = b * b - (4 * a * c);
 		return ret;
 	}
@@ -209,10 +211,12 @@ public class Calculate {
 	    double x = (b*b);
 	    
 	    double error = (x-num);
-	    if (( error < 0.005)&&(error > -0.005))
+//	    if (( error < 0.005)&&(error > -0.005))
+		if (( error < 0.000005)&&(error > -0.000005))
 	    	return b;
 	    
-        while ((error >=0.005)||(error <=-0.005)) {
+//        while ((error >=0.005)||(error <=-0.005)) {
+        while ((error >=0.000005)||(error <=-0.000005)) {
         	a = b;
         	b = 0.5*((num/a)+a);
         	x = (b*b);
@@ -220,8 +224,50 @@ public class Calculate {
         }
         return b ; 
 	}
-	    
-	}
+	
+	
+   public static String quadForm (int a , int b , int c) {
+	   double discriminant = discriminant(a,b,c);
+	   if  (discriminant <0.0){
+		      return "no real roots";
+	   }
+	   
+	  // end of discriminat 
+	   double s =sqrt (discriminant);
+	   double r1p1 = -b + s ;
+	   double r1p2 = r1p1/(2*a);
+
+	   // other version 
+	   double r2p1 = -b - s ;
+	   double r2p2 = r2p1/(2*a);
+	   
+	   // round the values
+       double v1 = round2(r1p2);
+       double v2 = round2(r2p2);
+
+       if ( v1 == v2) {
+    	   double x = round2 (r1p2);
+    	   String t = "" + x;
+    	   return t;
+       }
+          
+       // must have two values
+       if (r1p2 < r2p2) {    	   
+    	   String g = v1+ " and " + v2 ;
+    	   return g;
+		} else {
+			String g = v2 + " and " + v1 ; 
+			return g;
+    	   
+       }
+   }
+}
+
+       
+       
+       
+
+	
 //	√ N ≈ ½(N/A + A)
 
 
