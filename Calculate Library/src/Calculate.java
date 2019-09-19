@@ -67,6 +67,10 @@ public class Calculate {
 	}
 
 	public static boolean isDivisibleBy(int a, int b) {
+		if (0 == b) {
+			throw new IllegalArgumentException("division by zero not possible, your divisor b=" + b);
+	    }
+		
 		boolean isDivisibleBy1 = (a % b) == 0;
 		return isDivisibleBy1;
 	}
@@ -166,6 +170,14 @@ public class Calculate {
 	}
 
 	public static double exponent(double base, int exponentx) {
+		if (exponentx <0) {
+				throw new IllegalArgumentException("the exponent can't be negative, your exponent=" + exponentx);	
+		}
+		
+		if (0 == exponentx  ) {
+			return 1.0; // base^0 is 1.0 no matter the base 
+		}
+		
 		double x = 1;
 		int a = exponentx;
 		int b = exponentx * exponentx;
@@ -176,6 +188,10 @@ public class Calculate {
 	}
 
 	public static int factorial(int f) {
+		if (f <1) {
+			throw new IllegalArgumentException("factorial can't be less then 1, your argument is f=" + f);
+		}
+		
 		int x = 1;
 		for (int i = 1; i <= f; ++i) {
 			x = x * i;
@@ -185,6 +201,8 @@ public class Calculate {
 	}
 
 	public static boolean isPrime(int a) {
+		
+	
 		for (int i = 2; i < a; ++i) {
 			if (isDivisibleBy(a, i)) {
 				return false;
@@ -205,11 +223,19 @@ public class Calculate {
 	
 	
 	public static double sqrt (double num) {
+		if (num < 0.0) {
+			throw new IllegalArgumentException("there are no real square root for negative values, your argument is num=" + num);
+		}
+		
+		if (num == 0.0) {
+			return 0.0; // square root of zero is zero, let's not use the Newton algorithm for that one
+		}
 		
 		double a = 2;
 	    double b  = 0.5*((num/a)+a);
 	    double x = (b*b);
 	    
+	    // use a stricter than the original margin of 0.005 to have a more accurate square root estimate
 	    double error = (x-num);
 //	    if (( error < 0.005)&&(error > -0.005))
 		if (( error < 0.000005)&&(error > -0.000005))
@@ -232,12 +258,14 @@ public class Calculate {
 		      return "no real roots";
 	   }
 	   
-	  // end of discriminat 
+	  // end of discriminate 
 	   double s =sqrt (discriminant);
+	   
+	   // first version using +s
 	   double r1p1 = -b + s ;
 	   double r1p2 = r1p1/(2*a);
 
-	   // other version 
+	   // other version using -s
 	   double r2p1 = -b - s ;
 	   double r2p2 = r2p1/(2*a);
 	   
@@ -245,7 +273,9 @@ public class Calculate {
        double v1 = round2(r1p2);
        double v2 = round2(r2p2);
 
-       if ( v1 == v2) {
+       // check if it is one root ... instructions want us to use the  discriminate to tell if zero, one or two roots
+       // if ( v1 == v2) {  // this sort of includes roots that look the same due to rounding ... question of flavor
+       if ( 0.0 == discriminant ) {
     	   double x = round2 (r1p2);
     	   String t = "" + x;
     	   return t;
